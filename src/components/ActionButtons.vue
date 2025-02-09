@@ -10,15 +10,12 @@ const errorMessage = ref('')
 const downloadProject = async () => {
   try {
     isDownloading.value = true;
-    const response = await fetch('/download-zip');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    // Use window.open with data URL for download
-    window.open(url, '_blank');
-    URL.revokeObjectURL(url);
+    const link = document.createElement('a');
+    link.href = '/download-zip';
+    link.download = 'data.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     showError.value = false;
   } catch (error) {
     console.error('Failed to download project:', error);

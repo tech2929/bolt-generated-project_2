@@ -16,19 +16,12 @@ export default defineConfig({
                 const JSZip = JSZipModule.default;
                 const zip = new JSZip();
                 zip.file("data.json", jsonData);
-                zip.generateAsync({ type: "blob" })
+                zip.generateAsync({ type: "nodebuffer" }) // Generate as nodebuffer
                   .then(function(content) {
-                    const url = URL.createObjectURL(content);
                     res.setHeader('Content-Disposition', 'attachment; filename="data.zip"');
                     res.setHeader('Content-Type', 'application/zip');
                     res.writeHead(200);
-
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                      res.end(Buffer.from(reader.result as ArrayBuffer));
-                      URL.revokeObjectURL(url);
-                    };
-                    reader.readAsArrayBuffer(content);
+                    res.end(content); // Send the buffer directly
                   });
               })
             }
