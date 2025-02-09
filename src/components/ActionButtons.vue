@@ -31,7 +31,7 @@ const downloadProject = async () => {
 }
 
 const openInStackBlitz = () => {
-  window.open('https://stackblitz.com/~/github.com/your-repo', '_blank')
+  window.open('https://stackblitz.com/', '_blank')
 }
 
 const connectToSupabase = () => {
@@ -39,7 +39,7 @@ const connectToSupabase = () => {
 }
 
 const deploy = () => {
-  console.log('Deploying...')
+  window.open('https://app.netlify.com/', '_blank');
 }
 </script>
 
